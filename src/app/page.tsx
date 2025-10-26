@@ -1,30 +1,30 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import UploadArea from "../components/UploadArea";
-import Timeline from "../components/Timeline";
+import Link from "next/link";
 
-export default function Page() {
+export default function Home() {
+  const [showUpload, setShowUpload] = useState(false);
+
   return (
-    <main>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 space-y-6">
-          <UploadArea />
-          <Timeline />
-        </div>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 p-6">
+      <h1 className="text-4xl font-bold mb-6">Video Editor</h1>
 
-        <aside className="hidden lg:block">
-          <div className="card p-4">
-            <h3 className="font-semibold">Quick Tips</h3>
-            <ul className="text-sm text-gray-600 mt-2 space-y-2">
-              <li>Change the number of parts to auto-split the video.</li>
-              <li>
-                Click &quot;View Parts&quot; to open the editor modal for each
-                split.
-              </li>
-              <li>Use prompts per part to describe desired edits.</li>
-            </ul>
-          </div>
-        </aside>
+      <div className="flex gap-4">
+        <button
+          onClick={() => setShowUpload(true)}
+          className="px-6 py-3 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700"
+        >
+          Edit Video (Upload)
+        </button>
+
+        <Link href="/editor" className="px-6 py-3 border rounded-lg">
+          Open Editor (existing video)
+        </Link>
       </div>
-    </main>
+
+      {showUpload && <UploadArea onClose={() => setShowUpload(false)} />}
+    </div>
   );
 }
